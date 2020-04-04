@@ -1,10 +1,7 @@
-package main.mario.state;
+package main.state;
 
-import main.mario.State;
-import main.mario.mvc.Controller;
-import main.mario.mvc.Model;
-import main.mario.mvc.View;
-import main.mario.mvc.controller.StandardController;
+import main.State;
+import main.mvc.controller.StandardController;
 import main.mario.mvc.model.PlayModel;
 import main.mario.mvc.view.PlayView;
 

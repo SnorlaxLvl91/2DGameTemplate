@@ -1,9 +1,6 @@
-package main.mario;
-
-import main.mario.entity.StateGenerator;
+package main;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 
 //import static main.mario.mvc.model.PlayModel.*;

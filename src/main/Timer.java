@@ -1,9 +1,9 @@
-package main.mario;
+package main;
 
 import java.util.Map;
 import java.util.TimerTask;
 
-import static main.mario.Constants.*;
+import static main.Constants.*;
 
 /**
  * Provides Methods to tween Objects

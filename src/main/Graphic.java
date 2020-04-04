@@ -1,11 +1,9 @@
-package main.mario;
-
-import main.Util;
+package main;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-import static main.mario.Constants.*;
+import static main.Constants.*;
 
 public class Graphic {
 

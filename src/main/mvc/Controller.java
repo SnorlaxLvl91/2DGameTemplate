@@ -1,4 +1,4 @@
-package main.mario.mvc;
+package main.mvc;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

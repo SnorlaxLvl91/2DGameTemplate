@@ -1,10 +1,9 @@
-package main.mario.mvc.model;
+package main.mvc.model;
 
 import main.SoundPlayer;
+import main.StateStack;
 import main.mario.GameLevel;
 import main.mario.LevelMaker;
-import main.mario.StateStack;
-import main.mario.mvc.Model;
 import main.mario.state.PlayState;
 
 import java.awt.event.KeyEvent;

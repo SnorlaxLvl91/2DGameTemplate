@@ -1,8 +1,4 @@
-package main.mario;
-
-import main.mario.mvc.Controller;
-import main.mario.mvc.Model;
-import main.mario.mvc.View;
+package main;
 
 import java.awt.*;
 

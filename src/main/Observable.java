@@ -1,4 +1,4 @@
-package main.mario;
+package main;
 
 import java.util.LinkedList;
 

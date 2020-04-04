@@ -1,6 +1,4 @@
-package main.mario.mvc;
-
-import main.mario.StateStack;
+package main.mvc;
 
 /**
  *

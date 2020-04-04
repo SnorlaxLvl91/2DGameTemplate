@@ -1,8 +1,6 @@
-package main.mario.mvc.controller;
+package main.mvc.controller;
 
 import main.SoundPlayer;
-import main.mario.mvc.Controller;
-import main.mario.mvc.Model;
 
 import java.awt.event.KeyEvent;
 

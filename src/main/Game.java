@@ -1,6 +1,4 @@
-package main.mario;
-
-import main.mario.state.StartState;
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +6,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 
+import static Constants.*;
+
 public class Game extends JFrame implements Runnable {
-    public static final int FPS = 60;
-    private static final float DELTA_TIME = (float) 1 / FPS;
-    private static final long MAXLOOPTIME = 1000 / FPS;
-
-    public static int WINDOW_WIDTH = 960; //1280;
-    public static int WINDOW_HEIGHT = 540; //720;
-
     private static Game game;
     private static StateStack stateStack;
     private Canvas canvas;
@@ -27,9 +20,9 @@ public class Game extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT));
-        canvas.setMaximumSize(new Dimension(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT));
-        canvas.setMinimumSize(new Dimension(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT));
+        canvas.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        canvas.setMaximumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        canvas.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         canvas.setFocusable(false);
 
         // Screen bzw. Panel hinzufügen

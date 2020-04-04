@@ -3,7 +3,7 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
-import static main.mario.Sound.clips;
+import static main.Sound.clips;
 
 /**
  * Provides functions for playing, stopping, pausing any Sound represented by a clip

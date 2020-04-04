@@ -1,8 +1,8 @@
-package main.mario;
+package main;
 
 import java.awt.*;
 
-import static main.mario.Constants.*;
+import static main.Constants.*;
 
 public class Tile {
 

@@ -1,4 +1,4 @@
-package main.mario;
+package main;
 
 import javax.sound.sampled.Clip;
 import java.util.Map;

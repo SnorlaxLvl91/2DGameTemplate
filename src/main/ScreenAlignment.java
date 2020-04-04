@@ -1,4 +1,4 @@
-package main.mario;
+package main;
 
 public enum ScreenAlignment {
     NORTH,

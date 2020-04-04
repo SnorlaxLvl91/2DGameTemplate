@@ -1,15 +1,11 @@
-package main.mario.mvc.view;
+package main.mvc.view;
 
-import main.mario.Graphic;
-import main.mario.ScreenAdapter;
-import main.mario.ScreenAlignment;
-import main.mario.TypeFace;
-import main.mario.mvc.View;
+import main.TypeFace;
 import main.mario.mvc.model.StartModel;
 
 import java.awt.*;
 
-import static main.mario.Constants.*;
+import static main.Constants.VIRTUAL_HEIGHT;
 
 public class StartView implements View {
 
