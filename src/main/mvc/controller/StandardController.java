@@ -1,6 +1,8 @@
 package main.mvc.controller;
 
 import main.SoundPlayer;
+import main.mvc.Controller;
+import main.mvc.Model;
 
 import java.awt.event.KeyEvent;
 

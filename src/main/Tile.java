@@ -1,8 +1,10 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
-import static main.Constants.*;
+import static main.Constants.COLLIDABLE_TILES;
+import static main.Constants.TILE_WIDTH;
+import static main.Constants.TILE_HEIGHT;
 
 public class Tile {
 
@@ -11,28 +13,22 @@ public class Tile {
     public int width;
     public int height;
     public int id;
-    public boolean topper;
     public int tileset;
-    public int topperset;
 
     /**
      *
      * @param x
      * @param y
      * @param id
-     * @param topper
      * @param tileset
-     * @param topperset
      */
-    public Tile(int x, int y, int id, boolean topper, int tileset, int topperset) {
+    public Tile(int x, int y, int id, int tileset) {
         this.x = x;
         this.y = y;
         this.width = TILE_WIDTH;
         this.height = TILE_HEIGHT;
         this.id = id;
         this.tileset = tileset;
-        this.topper = topper;
-        this.topperset = topperset;
     }
 
     /**
@@ -54,18 +50,9 @@ public class Tile {
     public void render(Graphics2D g2d) {
         ScreenAdapter.drawImage(g2d,
                 Graphic.tilesets[tileset][id],
-                (int) x * TILE_WIDTH,
-                (int) y * TILE_HEIGHT,
+                x * TILE_WIDTH,
+                y * TILE_HEIGHT,
                 TILE_WIDTH,
                 TILE_HEIGHT);
-
-        if(topper) {
-            ScreenAdapter.drawImage(g2d,
-                    Graphic.toppersets[topperset][id],
-                    x * TILE_HEIGHT,
-                    y * TILE_WIDTH,
-                    TILE_WIDTH,
-                    TILE_HEIGHT);
-        }
     }
 }

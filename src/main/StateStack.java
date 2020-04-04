@@ -1,7 +1,11 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.util.Stack;
+
+import static main.Constants.WINDOW_WIDTH;
+import static main.Constants.WINDOW_HEIGHT;
 
 public class StateStack extends Stack<State> {
 
@@ -78,13 +82,12 @@ public class StateStack extends Stack<State> {
      */
     public void render(Graphics2D g2d){
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        g2d.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         Stack<State> stack = new Stack<State>();
         stack.addAll(stateStack);
         for(State state:stack){
             state.render(g2d);
         }
-        //stack.stream().forEach(e -> e.getView().render(g2d));
         stack.empty();
     }
 }

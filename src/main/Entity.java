@@ -1,9 +1,7 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.Map;
-
-//import static main.mario.mvc.model.PlayModel.*;
 
 public class Entity {
 
@@ -37,7 +35,6 @@ public class Entity {
         this.height = (int) def.get("height");
 
         this.texture = (String) def.get("texture");
-        //this.stateMachine = (StateMachine) def.get("stateMachine");
 
         this.direction = "left";
 

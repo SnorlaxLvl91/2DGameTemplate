@@ -2,7 +2,8 @@ package main;
 
 import java.awt.*;
 
-import static main.Constants.*;
+import static main.Constants.TILE_WIDTH;
+import static main.Constants.TILE_HEIGHT;
 
 /**
  *
@@ -49,9 +50,10 @@ public class TileMap {
      * @param g2d
      */
     public void render(Graphics2D g2d) {
-        for(int y = 0; y < this.height; y++)
-            for(int x = 0; x < this.width; x++) {
+        for(int y = 0; y < this.height; y++) {
+            for (int x = 0; x < this.width; x++) {
                 this.tiles[x][y].render(g2d);
             }
+        }
     }
 }

@@ -3,7 +3,9 @@ package main;
 import java.util.Map;
 import java.util.TimerTask;
 
-import static main.Constants.*;
+import static main.Constants.FPS;
+import static main.Constants.MAXLOOPTIME;
+
 
 /**
  * Provides Methods to tween Objects

@@ -1,6 +1,10 @@
 package main;
 
-import java.awt.*;
+import main.mvc.Controller;
+import main.mvc.Model;
+import main.mvc.View;
+
+import java.awt.Graphics2D;
 
 public interface State {
 

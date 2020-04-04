@@ -1,23 +1,35 @@
 package main;
 
-import javax.swing.*;
-import java.awt.*;
+import main.state.StartState;
+
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 
-import static Constants.*;
+import static main.Constants.DELTA_TIME;
+import static main.Constants.MAXLOOPTIME;
+import static main.Constants.WINDOW_WIDTH;
+import static main.Constants.WINDOW_HEIGHT;
 
-public class Game extends JFrame implements Runnable {
+/**
+ *
+ */
+public class Game extends Frame implements Runnable {
     private static Game game;
     private static StateStack stateStack;
     private Canvas canvas;
 
+    /**
+     *
+     */
     private Game() {
-        //setSize(WINDOW_WIDTH, WINDOW_HEIGHT);       // Fenstergröße festlegen
         setUndecorated(true);                       // Titelleiste entfernen
-        //setTitle("JSuper Mario!");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -51,17 +63,27 @@ public class Game extends JFrame implements Runnable {
         });
     }
 
-
+    /**
+     *
+     * @return
+     */
     public static Game getInstance() {
         if(game == null)
             game = new Game();
         return game;
     }
 
+    /**
+     *
+     * @param dt
+     */
     public void update(float dt){
         stateStack.update(dt);
     }
 
+    /**
+     *
+     */
     public void render(){
         BufferStrategy bs = canvas.getBufferStrategy();
         if(bs == null){
@@ -69,12 +91,15 @@ public class Game extends JFrame implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        g.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         stateStack.render((Graphics2D) g);
         bs.show();
         g.dispose();
     }
 
+    /**
+     *
+     */
     public void run() {
         // Unendlich-Schleife
         // Spiel soll durch Tasteneingabe beendet werden
@@ -114,8 +139,11 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param arg
+     */
     public static void main(String[] arg) {
-        //System.setProperty("sun.java2d.opengl", "true");
         stateStack = StateStack.getInstance();
         stateStack.append(new StartState());
         new Thread(getInstance()).start();

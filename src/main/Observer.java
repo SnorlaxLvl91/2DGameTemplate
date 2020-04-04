@@ -3,8 +3,15 @@ package main;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+/**
+ *
+ */
 public interface Observer {
 
+    /**
+     *
+     * @param obj
+     */
     public default void update(Object obj){
         Map<String, Object> map = (Map<String, Object>) obj;
 

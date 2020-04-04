@@ -15,7 +15,6 @@ public class SoundPlayer {
     private static Map<String, Thread> threads = new HashMap<>();
     private static Map<String, statusType> status = new HashMap<>();
 
-
     /**
      *
      * @param clipName

@@ -1,9 +1,9 @@
-package main.mario.entity;
+package main.entity;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.Map;
 
-public interface State {
+public interface BaseState {
 
     public void update(float dt);
     public void render(Graphics2D g2d);

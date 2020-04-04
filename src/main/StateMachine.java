@@ -1,28 +1,27 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.Map;
 
-import main.mario.entity.State;
-import main.mario.entity.StateGenerator;
+import main.entity.*;
 
 /**
  *
  */
 public class StateMachine {
 
-    Map<String, Object> states;
-    State current;
+    public Map<String, StateGenerator> states;
+    public BaseState current;
     public StateGenerator stateGenerator;
 
-    public StateMachine(Map<String, Object> states) {
+    public StateMachine(Map<String, StateGenerator> states) {
         this.states = states;
     }
 
     public void change(String stateName, Map<String, Object> enterParams) {
         if(this.current != null)
             this.current.exit();
-        stateGenerator = (StateGenerator) states.get(stateName);
+        stateGenerator = states.get(stateName);
         this.current = stateGenerator.generate();
         this.current.enter(enterParams);
     }

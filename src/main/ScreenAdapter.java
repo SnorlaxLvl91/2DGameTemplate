@@ -1,16 +1,24 @@
 package main;
 
-import java.awt.*;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import static main.tiles1.Constants.*;
-
+import static main.Constants.WINDOW_WIDTH;
+import static main.Constants.WINDOW_HEIGHT;
+import static main.Constants.VIRTUAL_WIDTH;
+import static main.Constants.VIRTUAL_HEIGHT;
 
 public class ScreenAdapter {
 
-    private static int camX;
-    private static int camY;
+    private static int camX = 0;
+    private static int camY = 0;
 
+    /**
+     * Sets "camera" parameters to illustrate camera movement on the screen
+     * @param x
+     * @param y
+     */
     public static void translate(int x, int y){
         double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
         double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
@@ -19,7 +27,22 @@ public class ScreenAdapter {
         camY = (int)(factorY * y);
     }
 
-    public static void drawImage(Graphics2D g2d, BufferedImage image, float x, float y, int width, int height){
+    /**
+     *
+     * @param g2d
+     * @param image
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
+    public static void drawImage(Graphics2D g2d,
+                                 BufferedImage image,
+                                 float x,
+                                 float y,
+                                 int width,
+                                 int height,
+                                 boolean onCamera){
         double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
         double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
 
@@ -38,71 +61,103 @@ public class ScreenAdapter {
         g2d.drawImage(image, dx1 - camX, dy1 - camY, dx2 - camX, dy2 - camY, sx1, sy1, sx2, sy2, null);
     }
 
-    public static void drawImage(Graphics2D g2d, BufferedImage image, float x, float y){
-        double factorX = ((double) WINDOW_WIDTH) / image.getWidth();
-        double factorY = ((double) WINDOW_HEIGHT) / image.getHeight();
-
+    /**
+     *
+     * @param g2d
+     * @param image
+     * @param x
+     * @param y
+     */
+    public static void drawImage(Graphics2D g2d,
+                                 BufferedImage image,
+                                 float x,
+                                 float y,
+                                 boolean onCamera){
         // Größe der ursprünglichen Bilddatei
-        int sx1 = 0;
-        int sy1 = 0;
-        int sx2 = image.getWidth();
-        int sy2 = image.getHeight();
+        int width = image.getWidth();
+        int height = image.getHeight();
 
-        // Größe der Datei auf dem Screen
-        int dx1 = (int)(factorX * x);
-        int dy1 = (int)(factorY * y);
-        int dx2 = (int)(factorX * sx2);
-        int dy2 = (int)(factorY * sy2);
-
-        g2d.drawImage(image, dx1 - 0*camX, dy1 - 0*camY, dx2 + dx1 - 0*camX, dy2 + dy1 - 0*camY, sx1, sy1, sx2, sy2, null);
+        drawImage(g2d, image, x, y, width, height, onCamera);
     }
 
-    public static int adaptNumber(String type, int number){
-        double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
-        double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
+    /**
+     *
+     * @param g2d
+     * @param image
+     * @param x
+     * @param y
+     */
+    public static void drawImage(Graphics2D g2d,
+                                 BufferedImage image,
+                                 float x,
+                                 float y,
+                                 int width,
+                                 int height){
 
-        switch (type){
-            case "x":
-                return (int) (factorX * number);
-            default:
-                return (int) (factorY * number);
-        }
+        drawImage(g2d, image, x, y, width, height, true);
     }
 
+    /**
+     *
+     * @param g2d
+     * @param image
+     * @param x
+     * @param y
+     */
+    public static void drawImage(Graphics2D g2d,
+                                 BufferedImage image,
+                                 float x,
+                                 float y){
+
+        drawImage(g2d, image, x, y, true);
+    }
+
+    /**
+     *
+     * @param g2d
+     * @param text
+     * @param offsetX
+     * @param offsetY
+     * @param alignment
+     */
     public static void drawString(Graphics2D g2d, String text, int offsetX, int offsetY, ScreenAlignment alignment){
         int x = 0;
         int y = 0;
         int textWidth;
         int textHeight;
 
+        // consider font size to adjust correct screen position
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
         textWidth = metrics.stringWidth(text);
         textHeight = metrics.getHeight();
+
+        // set x postion for text on screen
         switch(alignment){
             case CENTER:
             case SOUTH:
             case NORTH:
-                x = Game.WINDOW_WIDTH / 2 - textWidth / 2;
+                x = WINDOW_WIDTH / 2 - textWidth / 2;
                 break;
             case NORTHEAST:
             case EAST:
             case SOUTHEAST:
-                x = Game.WINDOW_WIDTH - textWidth;
+                x = WINDOW_WIDTH - textWidth;
                 break;
             default:
                 break;
         }
 
+        // set y postion for text on screen
         switch(alignment){
             case WEST:
             case EAST:
             case CENTER:
-                y = Game.WINDOW_HEIGHT / 2 - textHeight / 2;
+                y = WINDOW_HEIGHT / 2 - textHeight / 2;
                 break;
             case SOUTHWEST:
             case SOUTHEAST:
             case SOUTH:
-                y = Game.WINDOW_HEIGHT - textHeight;
+                y = WINDOW_HEIGHT - textHeight;
                 break;
             case NORTHEAST:
             case NORTH:
@@ -112,6 +167,7 @@ public class ScreenAdapter {
             default:
                 break;
         }
+
         g2d.drawString(text, x + offsetX, y + offsetY);
     }
 }

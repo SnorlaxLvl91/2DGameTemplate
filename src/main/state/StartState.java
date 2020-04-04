@@ -1,11 +1,14 @@
 package main.state;
 
 import main.State;
+import main.mvc.Controller;
+import main.mvc.Model;
+import main.mvc.View;
 import main.mvc.controller.StandardController;
-import main.mario.mvc.model.StartModel;
-import main.mario.mvc.view.StartView;
+import main.mvc.model.StartModel;
+import main.mvc.view.StartView;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public class StartState implements State {
 

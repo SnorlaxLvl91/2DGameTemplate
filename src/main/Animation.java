@@ -2,6 +2,9 @@ package main;
 
 import java.util.Map;
 
+/**
+ *
+ */
 public class Animation {
 
     private int[] frames;
@@ -9,6 +12,10 @@ public class Animation {
     private float timer;
     private int currentFrame;
 
+    /**
+     *
+     * @param params
+     */
     public Animation(Map<String, Object> params) {
         frames = (int[]) params.get("frames");
         interval = (float) params.get("interval");
@@ -16,7 +23,10 @@ public class Animation {
         currentFrame = 0;
     }
 
-
+    /**
+     *
+     * @param dt
+     */
     public void update(float dt) {
         // no need to update if animation is only one frame
         if (frames.length > 1) {
@@ -28,8 +38,11 @@ public class Animation {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCurrentFrame() {
         return frames[currentFrame];
     }
-
 }

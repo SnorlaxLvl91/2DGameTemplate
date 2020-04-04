@@ -1,6 +1,6 @@
-package main.mario.entity;
+package main.entity;
 
 public interface StateGenerator {
 
-    public State generate();
+    public BaseState generate();
 }
