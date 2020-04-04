@@ -9,7 +9,7 @@ public class StartModel implements Model {
      *
      */
     public StartModel() {
-        SoundPlayer.play("music", true);
+        //SoundPlayer.play("music", true);
     }
 
     /**

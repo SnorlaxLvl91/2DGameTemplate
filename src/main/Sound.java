@@ -10,7 +10,5 @@ import static main.Util.getClip;
  */
 public class Sound {
 
-    /**public static Map<String, Clip> clips = Map.of(
-            name, getClip("res\\sounds\\name.?"),
-    );*/
+    public static Map<String, Clip> clips = Map.of(/**name, getClip("res\\sounds\\name.?"*/);
 }
