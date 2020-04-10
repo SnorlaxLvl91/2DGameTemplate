@@ -11,7 +11,7 @@ import main.entity.*;
 public class StateMachine {
 
     public Map<String, StateGenerator> states;
-    public BaseState current;
+    public State current;
     public StateGenerator stateGenerator;
 
     public StateMachine(Map<String, StateGenerator> states) {

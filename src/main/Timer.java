@@ -2,6 +2,7 @@ package main;
 
 import java.util.Map;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import static main.Constants.FPS;
 import static main.Constants.MAXLOOPTIME;
@@ -23,58 +24,86 @@ public class Timer extends Observable {
      * while notifying the classes Observer
      *
      * @param seconds       time to tween between start value and end value
-     * @param field         name of the given field
-     * @param startValue    value at the beginning of tweening
-     * @param endValue      value at the end of tweening
+     * @param fields        names of the given fields
+     * @param startValues   values at the beginning of tweening
+     * @param endValues     values at the end of tweening
      */
-    public void tween(float seconds, String field, int startValue, int endValue){
+    public void tween(float delay, float seconds, String[] fields, int[][] startValues, int[][] endValues){
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                float sum = 0;
-                int value = startValue;
-                int tweenCounter = (int) (seconds * FPS);
-                final float increment = (float)(endValue - startValue) / tweenCounter;
+                for(int x = 0; x < startValues.length; x++){
+                    int tweenCounter = (int) (seconds * FPS);
+                    float sum[] = new float[fields.length];
+                    int[] values = new int[fields.length];
+                    float[] increment = new float[fields.length];
 
-                while(tweenCounter-- > 0) {
-                    long timestamp;
-                    long oldTimestamp;
-
-                    // Startzeit merken
-                    oldTimestamp = System.currentTimeMillis();
-
-                    // Inkrementieren
-                    sum += increment;
-                    if (Math.abs(sum) >= 1) {
-                        value += (int) sum;
-                        sum = sum - (int) sum;
-                    }
-                    // Zwischenzeit merken und prüfen,
-                    // ob Update gemäß FPS zu lange gedauert hat
-                    timestamp = System.currentTimeMillis();
-                    if (timestamp - oldTimestamp > MAXLOOPTIME) {
-                        System.out.println("Tween dauert zu lange!");
+                    for(int y = 0; y < fields.length; y++) {
+                        values[y] = startValues[x][y];
+                        increment[y] = (float) (endValues[x][y] - startValues[x][y]) / tweenCounter;
                     }
 
-                    // Aktuellsten State laden
-                    // Hat sich durch Update ggf geändert
-                    notifyObservers(Map.of(field, value));
+                    while (tweenCounter-- > 0) {
+                        long timestamp;
+                        long oldTimestamp;
 
-                    // Endzeit merken und prüfen,
-                    // ob noch zu viel Zeit über ist.
-                    timestamp = System.currentTimeMillis();
-                    if (timestamp - oldTimestamp <= MAXLOOPTIME) {
-                        try {
-                            Thread.sleep(MAXLOOPTIME - (timestamp - oldTimestamp));
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        // Startzeit merken
+                        oldTimestamp = System.currentTimeMillis();
+
+                        // Inkrementieren
+                        for(int y = 0; y < fields.length; y++) {
+                            sum[y] += increment[y];
+                            if (Math.abs(sum[y]) >= 1) {
+                                values[y] += (int) sum[y];
+                                sum[y] = sum[y] - (int) sum[y];
+                            }
+                        }
+                        // Zwischenzeit merken und prüfen,
+                        // ob Update gemäß FPS zu lange gedauert hat
+                        timestamp = System.currentTimeMillis();
+                        if (timestamp - oldTimestamp > MAXLOOPTIME) {
+                            System.out.println("Tween dauert zu lange!");
                         }
 
+                        // Aktuellsten State laden
+                        // Hat sich durch Update ggf geändert
+                        notifyObservers(Map.of(fields, values));
+
+                        // Endzeit merken und prüfen,
+                        // ob noch zu viel Zeit über ist.
+                        timestamp = System.currentTimeMillis();
+                        if (timestamp - oldTimestamp <= MAXLOOPTIME) {
+                            try {
+                                Thread.sleep(MAXLOOPTIME - (timestamp - oldTimestamp));
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             }
         };
         java.util.Timer timer = new java.util.Timer();
-        timer.schedule(task, 0);
+        timer.schedule(task, (long) delay * 1000);
+    }
+
+    /**
+     *
+     * @param interval
+     * @param delay
+     * @param seconds
+     * @param fields
+     * @param startValues
+     * @param endValues
+     */
+    public void tweenEvery(float interval, float delay, float seconds, String[] fields, int[][] startValues, int[][] endValues){
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                tween(delay, seconds, fields, startValues, endValues);
+            }
+        };
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule(task, (long) delay * 1000, (long) interval * 1000);
     }
 }

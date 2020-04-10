@@ -10,12 +10,12 @@ public class Constants {
     public static final long MAXLOOPTIME = 1000 / FPS;
 
     // Window Size
-    public static int WINDOW_WIDTH = 960; //1280;
-    public static int WINDOW_HEIGHT = 540; //720;
+    public static int WINDOW_WIDTH = 1120;
+    public static int WINDOW_HEIGHT = 630;
 
     // Auflösung
-    public static final int VIRTUAL_WIDTH = 256;
-    public static final int VIRTUAL_HEIGHT = 144;
+    public static final int VIRTUAL_WIDTH = 384;
+    public static final int VIRTUAL_HEIGHT = 216;
 
     // Map
     public static final int MAP_WIDTH = 100;

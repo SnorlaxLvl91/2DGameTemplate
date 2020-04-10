@@ -8,13 +8,32 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Helper functions for writing JSuperMario.
  */
 public class Util{
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
+    public static BufferedImage loadImage(String filePath){
+        try {
+            // load file
+            return ImageIO.read(new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * Given a filePath (to a picture file with multiple sprites), as well as a
@@ -102,6 +121,68 @@ public class Util{
 
             return clip;
         }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
+    public static Map<String, Map<String, Object>> getData(String filePath){
+
+        Map<String, Map<String, Object>> map = new HashMap<>();
+
+        try{
+
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            BufferedReader f = new BufferedReader(reader);
+            String line = "";
+            String key = "";
+
+            while((line = f.readLine()) != null){
+                line = line.replaceAll(" ", "");
+                if(line.contains("{") && line.contains("=")) {
+                    key = line.split("=")[0];
+                    map.put(key, rekData(f));
+                }
+            }
+
+            return map;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Map<String, Object> rekData(BufferedReader f){
+
+        Map<String, Object> map = new HashMap<>();
+
+        String line = "";
+        String key = "";
+        String value = "";
+        try {
+            while ((line = f.readLine()) != null) {
+                line = line.replaceAll(" ", "");
+                key = line.split("=")[0];
+                if(line.contains("}")){
+                    return map;
+                }else if(line.contains("{")) {
+                    map.put(key, rekData(f));
+                }else {
+                    value = line.split("=")[1].replaceAll("'", "");
+                    if (line.contains("'")) {
+                        map.put(key, value);
+                    } else {
+                        map.put(key, Integer.parseInt(value));
+                    }
+                }
+            }
+        }catch(Exception e){
             e.printStackTrace();
         }
         return null;

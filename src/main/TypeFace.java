@@ -9,5 +9,7 @@ import static main.Util.getFont;
  */
 public class TypeFace {
 
-    //public static Font exampleFont = getFont("res\\fonts\\name.ttf", sizef);
+    public static Font small = getFont("res\\fonts\\font.ttf", 8f);
+    public static Font medium = getFont("res\\fonts\\font.ttf", 16f);
+    public static Font large = getFont("res\\fonts\\font.ttf", 32f);
 }

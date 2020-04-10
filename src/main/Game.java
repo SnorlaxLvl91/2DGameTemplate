@@ -1,6 +1,6 @@
 package main;
 
-import main.state.StartState;
+import main.state.game.StartState;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -58,7 +58,6 @@ public class Game extends Frame implements Runnable {
                     WINDOW_WIDTH = (int)((float) Game.getInstance().getHeight() / WINDOW_HEIGHT * WINDOW_WIDTH);
                     WINDOW_HEIGHT = Game.getInstance().getHeight();
                 }
-                //Game.getInstance().setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
             }
         });
     }

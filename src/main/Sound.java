@@ -1,6 +1,7 @@
 package main;
 
 import javax.sound.sampled.Clip;
+import java.util.HashMap;
 import java.util.Map;
 
 import static main.Util.getClip;
@@ -10,5 +11,8 @@ import static main.Util.getClip;
  */
 public class Sound {
 
-    public static Map<String, Clip> clips = Map.of(/**name, getClip("res\\sounds\\name.?"*/);
+    public static Map<String, Clip> clips = new HashMap<>();
+    static{
+        clips.put("intro-music", getClip("res\\sounds\\intro.wav"));
+    }
 }

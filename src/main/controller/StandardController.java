@@ -1,8 +1,8 @@
-package main.mvc.controller;
+package main.controller;
 
 import main.SoundPlayer;
-import main.mvc.Controller;
-import main.mvc.Model;
+import main.State;
+import main.Controller;
 
 import java.awt.event.KeyEvent;
 
@@ -12,12 +12,10 @@ import java.awt.event.KeyEvent;
  * - set keys in model to true, if keys are pressed
  * - set keys in model to false, if keys are released
  */
-public class StandardController implements Controller {
+public class StandardController extends Controller {
 
-    private Model model;
-
-    public StandardController(Model model){
-        this.model = model;
+    public StandardController(State state){
+        super(state);
     }
 
     /**
@@ -33,9 +31,9 @@ public class StandardController implements Controller {
         else if(e.getKeyCode() == KeyEvent.VK_O)
             SoundPlayer.replay("music");
         else if(e.getKeyCode() == KeyEvent.VK_I)
-            SoundPlayer.stopp("music");
+            SoundPlayer.stop("music");
         else if(e.getKeyCode() >= 0 && e.getKeyCode() < 256) {
-            model.pressed[e.getKeyCode()] = true;
+            state.pressed[e.getKeyCode()] = true;
         }else {
             //...
         }
@@ -48,7 +46,7 @@ public class StandardController implements Controller {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() >= 0 && e.getKeyCode() < 256) {
-            model.pressed[e.getKeyCode()] = false;
+            state.pressed[e.getKeyCode()] = false;
         }else {
             //...
         }

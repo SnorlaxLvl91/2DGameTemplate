@@ -33,10 +33,10 @@ public class StateStack extends Stack<State> {
     public void append(State newState){
         if(!isEmpty()) {
             State oldState = peek();
-            game.removeKeyListener(oldState.getController());
+            game.removeKeyListener(oldState.keyListener);
         }
         push(newState);
-        game.addKeyListener(newState.getController());
+        game.addKeyListener(newState.keyListener);
     }
 
     /**
@@ -46,11 +46,11 @@ public class StateStack extends Stack<State> {
     public void change(State newState){
         if(!isEmpty()) {
             State oldState = peek();
-            game.removeKeyListener(oldState.getController());
+            game.removeKeyListener(oldState.keyListener);
             pop();
         }
         push(newState);
-        game.addKeyListener(newState.getController());
+        game.addKeyListener(newState.keyListener);
     }
 
     /**
@@ -59,11 +59,11 @@ public class StateStack extends Stack<State> {
     public void remove(){
         if(!isEmpty()) {
             State oldState = peek();
-            game.removeKeyListener(oldState.getController());
+            game.removeKeyListener(oldState.keyListener);
             pop();
             if(!isEmpty()) {
                 State newState = peek();
-                game.addKeyListener(newState.getController());
+                game.addKeyListener(newState.keyListener);
             }
         }
     }

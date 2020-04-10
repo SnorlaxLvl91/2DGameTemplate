@@ -10,7 +10,7 @@ import static main.Sound.clips;
  */
 public class SoundPlayer {
 
-    private enum statusType{ON_PAUSE, ON_STOPP, ON_PLAY};
+    private enum statusType{ON_PAUSE, ON_STOP, ON_PLAY};
 
     private static Map<String, Thread> threads = new HashMap<>();
     private static Map<String, statusType> status = new HashMap<>();
@@ -35,7 +35,7 @@ public class SoundPlayer {
                                 case ON_PAUSE:
                                     clips.get(clipName).stop();
                                     break TryAgain;
-                                case ON_STOPP:
+                                case ON_STOP:
                                     clips.get(clipName).setFramePosition(clips.get(clipName).getFrameLength());
                                     repeat = false;
                                 default:
@@ -74,9 +74,9 @@ public class SoundPlayer {
      *
      * @param clipName
      */
-    public static void stopp(String clipName){
+    public static void stop(String clipName){
         if(status.containsKey(clipName))
-            status.replace(clipName, statusType.ON_STOPP);
+            status.replace(clipName, statusType.ON_STOP);
     }
 
     /**

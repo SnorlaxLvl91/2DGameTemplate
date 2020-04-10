@@ -1,12 +1,11 @@
-package main;
+package tools;
+
+import main.ScreenAlignment;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static main.Constants.WINDOW_WIDTH;
-import static main.Constants.WINDOW_HEIGHT;
-import static main.Constants.VIRTUAL_WIDTH;
-import static main.Constants.VIRTUAL_HEIGHT;
+import static tools.SpritesheetModifier.*;
 
 public class ScreenAdapter {
 
@@ -114,6 +113,38 @@ public class ScreenAdapter {
     /**
      *
      * @param g2d
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
+    public static void drawLine(Graphics2D g2d, int x, int y, int width, int height){
+        double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
+        double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
+
+        g2d.fillRect(
+                (int) (factorX * x),
+                (int) (factorY * y),
+                (int) (factorX * width),
+                (int) (factorY * height));
+    }
+
+    public static void drawRect(Graphics2D g2d, int x, int y, int width, int height){
+        double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
+        double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
+
+        // Größe der Datei auf dem Screen
+        int dx1 = (int)(factorX * x);
+        int dy1 = (int)(factorY * y);
+        int dx2 = (int)(factorX * (x + width));
+        int dy2 = (int)(factorY * (y + height));
+
+        g2d.setColor(Color.WHITE);
+        g2d.drawRect(dx1, dy1, dx2 - dx1, dy2 - dy1);
+    }
+    /**
+     *
+     * @param g2d
      * @param text
      * @param offsetX
      * @param offsetY
@@ -125,10 +156,7 @@ public class ScreenAdapter {
         int textWidth;
         int textHeight;
 
-        double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
-
         // consider font size to adjust correct screen position
-        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, (int)(factorX * g2d.getFont().getSize())));
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
         textWidth = metrics.stringWidth(text);
         textHeight = metrics.getHeight();
@@ -171,17 +199,5 @@ public class ScreenAdapter {
         }
 
         g2d.drawString(text, x + offsetX, y + offsetY);
-    }
-
-    public static void fillOval(Graphics2D g2d, int x, int y, int width, int height){
-        double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
-        double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
-
-        x = (int)(factorX * x);
-        y = (int)(factorY * y);
-        width = (int)(factorX * width);
-        height = (int)(factorY * height);
-
-        g2d.fillOval(x, y, width, height);
     }
 }

@@ -1,6 +1,8 @@
 package main.entity;
 
+import main.State;
+
 public interface StateGenerator {
 
-    public BaseState generate();
+    public State generate();
 }
