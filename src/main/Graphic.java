@@ -18,7 +18,7 @@ public class Graphic {
     public static BufferedImage[] quads = GenerateQuads("res/graphics/sheet.png", TILE_WIDTH, TILE_HEIGHT);
 
     // example for multidimensional textures
-    public static BufferedImage[][] tilesets; // = GenerateTileSets(Graphic.quads, TILE_SETS_WIDE, TILE_SETS_TALL, TILE_SET_WIDTH, TILE_SET_HEIGHT);
+    public static BufferedImage[] tiles = GenerateQuads("res/graphics/sheet.png", TILE_WIDTH, TILE_HEIGHT);
 
     // textboxes
     public static BufferedImage[][] textboxes = GenerateTileSets(
@@ -38,7 +38,6 @@ public class Graphic {
 
     public static Map<String, BufferedImage> textures = new HashMap<>();
     static {
-        textures.put("tiles", loadImage("res/graphics/sheet.png"));
         textures.put("entities", loadImage("res/graphics/entities.png"));
         textures.put("cursor", loadImage("res/graphics/cursor.png"));
 

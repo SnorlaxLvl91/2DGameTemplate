@@ -38,10 +38,10 @@ public class GameObject implements Observer{
      * @param target
      * @return
      */
-    public boolean collides(Entity target) {
+    /**public boolean collides(Entity target) {
         return !(target.x > this.x + this.width - 2 || this.x > target.x + target.width - 2
                 || target.y > this.y + this.height - 2 || this.y > target.y + target.height);
-    }
+    }*/
 
     /**
      *

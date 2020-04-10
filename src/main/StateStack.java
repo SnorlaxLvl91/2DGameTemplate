@@ -73,7 +73,8 @@ public class StateStack extends Stack<State> {
      * @param dt
      */
     public void update(float dt){
-        stateStack.peek().update(dt);
+        if(!stateStack.isEmpty())
+            stateStack.peek().update(dt);
     }
 
     /**

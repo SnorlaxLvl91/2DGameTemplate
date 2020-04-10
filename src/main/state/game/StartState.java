@@ -61,7 +61,14 @@ public class StartState extends State implements Observer {
                                 stop("intro-music");
                                 StateStack.getInstance().remove();
                                 StateStack.getInstance().append(new PlayState());
-                                StateStack.getInstance().append(new DialogState(""));
+                                StateStack.getInstance().append(new DialogState(
+                                        "Willkommen in der Welt von Pokemon! " +
+                                                "An dieser Stelle soll ein super " +
+                                                "spannender Text zur Geschichte stehen. " +
+                                                "Wir wollen allerdings zuerst die " +
+                                                "Steuerung des Spielers auf einer Karte " +
+                                                "umsetzen! Viel Erfolg..."
+                                ));
                                 StateStack.getInstance().append(new FadeOutState(
                                         new Color(255, 255, 255),
                                         1,
@@ -78,9 +85,9 @@ public class StartState extends State implements Observer {
 
         g2d.setColor(new Color(24, 24, 24, 255));
         g2d.setFont(TypeFace.large);
-        ScreenAdapter.drawString(g2d, "50-Mon!", 0,  - 72, ScreenAlignment.CENTER);
+        ScreenAdapter.drawString(g2d, "Pokemon!", 0,  VIRTUAL_HEIGHT / 5, ScreenAlignment.NORTH);
         g2d.setFont(TypeFace.medium);
-        ScreenAdapter.drawString(g2d, "Press Enter", 0, -55, ScreenAlignment.SOUTH);
+        ScreenAdapter.drawString(g2d, "Press Enter", 0, -VIRTUAL_HEIGHT / 10, ScreenAlignment.SOUTH);
         g2d.setFont(TypeFace.small);
 
         g2d.setColor(new Color(45, 184, 45, 124));

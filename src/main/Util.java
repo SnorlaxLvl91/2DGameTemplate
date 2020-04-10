@@ -126,6 +126,37 @@ public class Util{
         return null;
     }
 
+    public static Map<String, Object> getSingleData(String filePath){
+
+        Map<String, Object> map = new HashMap<>();
+
+        try{
+
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            BufferedReader f = new BufferedReader(reader);
+            f.readLine();
+
+            map = rekData(f);
+            return map;
+            /**String line = "";
+            String key = "";
+
+            while((line = f.readLine()) != null){
+                line = line.replaceAll(" ", "");
+                if(line.contains("{") && line.contains("=")) {
+                    key = line.split("=")[0];
+                    map.put(key, rekData(f));
+                }
+            }
+
+            return map;*/
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      *
      * @param filePath
@@ -169,14 +200,38 @@ public class Util{
             while ((line = f.readLine()) != null) {
                 line = line.replaceAll(" ", "");
                 key = line.split("=")[0];
-                if(line.contains("}")){
+                if(line.equals("}")){
                     return map;
-                }else if(line.contains("{")) {
+                }else if(line.contains("{") && !line.contains("}")) {
                     map.put(key, rekData(f));
                 }else {
                     value = line.split("=")[1].replaceAll("'", "");
-                    if (line.contains("'")) {
+                    value = value.replaceAll("\\{", "");
+                    value = value.replaceAll("}", "");
+                    if(line.contains("}")){
+                        if(line.contains("'")){
+                            String[] stringArray = new String[value.split(",").length];
+                            for(int i = 0; i < stringArray.length; i++){
+                                stringArray[i] = value.split(",")[i];
+                            }
+                            map.put(key, stringArray);
+                        }else if(line.contains(".")){
+                            float[] flaotArray = new float[value.split(",").length];
+                            for(int i = 0; i < flaotArray.length; i++){
+                                flaotArray[i] = Float.parseFloat(value.split(",")[i]);
+                            }
+                            map.put(key, flaotArray);
+                        }else{
+                            int[] intArray = new int[value.split(",").length];
+                            for(int i = 0; i < intArray.length; i++){
+                                intArray[i] = Integer.parseInt(value.split(",")[i]);
+                            }
+                            map.put(key, intArray);
+                        }
+                    }else if (line.contains("'")) {
                         map.put(key, value);
+                    }else if (line.contains(".")){
+                        map.put(key, Float.parseFloat(value));
                     } else {
                         map.put(key, Integer.parseInt(value));
                     }

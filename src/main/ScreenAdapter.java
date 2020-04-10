@@ -124,11 +124,14 @@ public class ScreenAdapter {
         int y = 0;
         int textWidth;
         int textHeight;
+        Font oldFont;
 
         double factorX = ((double) WINDOW_WIDTH) / VIRTUAL_WIDTH;
+        double factorY = ((double) WINDOW_HEIGHT) / VIRTUAL_HEIGHT;
 
         // consider font size to adjust correct screen position
-        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, (int)(factorX * g2d.getFont().getSize())));
+//        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, (int)(factorX * g2d.getFont().getSize())));
+        oldFont = g2d.getFont();
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
         textWidth = metrics.stringWidth(text);
         textHeight = metrics.getHeight();
@@ -138,12 +141,12 @@ public class ScreenAdapter {
             case CENTER:
             case SOUTH:
             case NORTH:
-                x = WINDOW_WIDTH / 2 - textWidth / 2;
+                x = VIRTUAL_WIDTH / 2 - textWidth / 2;
                 break;
             case NORTHEAST:
             case EAST:
             case SOUTHEAST:
-                x = WINDOW_WIDTH - textWidth;
+                x = VIRTUAL_WIDTH - textWidth;
                 break;
             default:
                 break;
@@ -154,12 +157,12 @@ public class ScreenAdapter {
             case WEST:
             case EAST:
             case CENTER:
-                y = WINDOW_HEIGHT / 2 - textHeight / 2;
+                y = VIRTUAL_HEIGHT / 2 - textHeight / 2;
                 break;
             case SOUTHWEST:
             case SOUTHEAST:
             case SOUTH:
-                y = WINDOW_HEIGHT - textHeight;
+                y = VIRTUAL_HEIGHT - textHeight;
                 break;
             case NORTHEAST:
             case NORTH:
@@ -169,8 +172,9 @@ public class ScreenAdapter {
             default:
                 break;
         }
-
-        g2d.drawString(text, x + offsetX, y + offsetY);
+        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, (int)(factorX * g2d.getFont().getSize())));
+        g2d.drawString(text, (int)(factorX * (x + offsetX)), (int)(factorY * (y + offsetY)));
+        g2d.setFont(oldFont);
     }
 
     public static void fillOval(Graphics2D g2d, int x, int y, int width, int height){

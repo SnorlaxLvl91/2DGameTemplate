@@ -1,0 +1,6 @@
+{
+    grass = {45, 46}
+    empty = {100}
+    tall-grass = {41}
+    half-tall-grass = {49}
+}

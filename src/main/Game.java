@@ -112,7 +112,6 @@ public class Game extends Frame implements Runnable {
 
             // Aktuellsten State laden
             update(DELTA_TIME);
-
             // Zwischenzeit merken und prüfen,
             // ob Update gemäß FPS zu lange gedauert hat
             timestamp = System.currentTimeMillis();
