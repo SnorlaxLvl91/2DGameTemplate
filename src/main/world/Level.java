@@ -1,10 +1,13 @@
 package main.world;
 
+import main.ScreenAdapter;
 import main.entity.EntityDefs;
 import main.entity.Player;
 
 import java.awt.*;
 import java.util.Map;
+
+import static main.Constants.*;
 
 public class Level {
 
@@ -16,6 +19,9 @@ public class Level {
     public TileMap halfGrassLayer;
 
     public Player player;
+
+    public int camX;
+    public int camY;
 
     public Level() {
 
@@ -59,9 +65,30 @@ public class Level {
 
     public void update(float dt) {
         player.update(dt);
+        updateCamera();
+    }
+
+    public void updateCamera() {
+
+        camX = Math.max(
+                0,
+                Math.min(
+                        TILE_WIDTH * baseLayer.width - VIRTUAL_WIDTH,
+                        (int) player.x - (VIRTUAL_WIDTH / 2)
+                )
+        );
+        camY = Math.max(
+                0,
+                Math.min(
+                        TILE_HEIGHT* baseLayer.height - VIRTUAL_HEIGHT,
+                        (int) player.y - (VIRTUAL_HEIGHT / 2)
+                )
+        );
     }
 
     public void render(Graphics2D g2d) {
+        ScreenAdapter.translate(camX, camY);
+
         baseLayer.render(g2d);
         grassLayer.render(g2d);
         player.render(g2d);

@@ -80,8 +80,8 @@ public class Timer extends Observable {
                             }
                         }
                     }
+                    notifyObservers(Map.of(new String[]{"finished"}, new boolean[]{false}));
                 }
-                notifyObservers(Map.of(new String[]{"finished"}, new boolean[]{false}));
             }
         };
         java.util.Timer timer = new java.util.Timer();

@@ -6,12 +6,12 @@ import main.entity.EntityDefs;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Map;
 import java.util.Random;
 
-import static main.Constants.*;
+import static main.Constants.VIRTUAL_HEIGHT;
+import static main.Constants.VIRTUAL_WIDTH;
 
-public class DialogState extends State {
+public class DialogueState extends State {
 
     private final int TOP_LEFT = 0;
     private final int TOP = 1;
@@ -39,19 +39,18 @@ public class DialogState extends State {
     private String[] textOnScreen;
     private int numOfLettersToDraw;
     private int wrap = VIRTUAL_WIDTH - LEFT_OFFSET - RIGHT_OFFSET;
-    private Action onFinishedReading;
 
-    public DialogState(String text, Action onFinishedReading){
-        this(text, new Random().nextInt(20), onFinishedReading);
+    public DialogueState(String text){
+        this(text, new Random().nextInt(20));
     }
 
-    public DialogState(String text, int textbox, Action onFinishedReading){
+    public DialogueState(String text, int textbox){
         keyListener = new StandardController(this);
         this.text = text;
         this.textbox = textbox;
-        this.onFinishedReading = onFinishedReading;
         numOfLettersToDraw = 0;
         drawableText = wrappedText();
+        System.out.println(EntityDefs.ENTITY_DEFS);
     }
 
     private String[] wrappedText(){
@@ -98,7 +97,6 @@ public class DialogState extends State {
             if(numOfLettersToDraw >= drawableText[0].length() + drawableText[1].length()) {
                 if(text.equals("")){
                     StateStack.getInstance().remove();
-                    onFinishedReading.execute();
                 }else {
                     drawableText = wrappedText();
                     numOfLettersToDraw = 0;
@@ -164,7 +162,7 @@ public class DialogState extends State {
                 default:
                     continue;
             }
-            ScreenAdapter.drawImage(g2d, Graphic.textboxes[textbox][i], x, y, width, height, false);
+            ScreenAdapter.drawImage(g2d, Graphic.textboxes[textbox][i], x, y, width, height);
         }
         g2d.setColor(Color.BLACK);
         g2d.setFont(TypeFace.small);

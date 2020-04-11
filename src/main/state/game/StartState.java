@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import static main.SoundPlayer.*;
@@ -58,7 +57,8 @@ public class StartState extends State implements Observer {
                                                 "spannender Text zur Geschichte stehen. " +
                                                 "Wir wollen allerdings zuerst die " +
                                                 "Steuerung des Spielers auf einer Karte " +
-                                                "umsetzen! Viel Erfolg..."
+                                                "umsetzen! Viel Erfolg...",
+                                        () -> {}
                                 ));
                                 StateStack.getInstance().append(new FadeOutState(
                                         new Color(255, 255, 255),
@@ -85,14 +85,14 @@ public class StartState extends State implements Observer {
         g2d.setFont(TypeFace.small);
 
         g2d.setColor(new Color(45, 184, 45, 124));
-        ScreenAdapter.fillOval(g2d, VIRTUAL_WIDTH / 2 - 36, VIRTUAL_HEIGHT / 2 + 32, 72, 24);
+        ScreenAdapter.shape(g2d, "ellipse", "fill", VIRTUAL_WIDTH / 2 - 36, VIRTUAL_HEIGHT / 2 + 32, 72, 24);
 
         g2d.setColor(new Color(255, 255, 255, 255));
         ScreenAdapter.drawImage(g2d, Graphic.textures.get(this.sprite), this.spriteX, this.spriteY);
     }
 
     public void doSomething(){
-        if(spriteX >= VIRTUAL_WIDTH) {
+        if(spriteX <= -60) {
             List<String> keysAsArray = new ArrayList<String>(POKEMON_DEFS.keySet());
             Random r = new Random();
             this.sprite = (String) POKEMON_DEFS

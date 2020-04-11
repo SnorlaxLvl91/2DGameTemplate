@@ -38,7 +38,7 @@ public class PlayState extends State {
             play("heal", false);
 //            self.level.player.party.pokemon[1].currentHP = self.level.player.party.pokemon[1].HP
 
-            StateStack.getInstance().append(new DialogState("Your Pokemon has been healed!"));
+            StateStack.getInstance().append(new DialogState("Your Pokemon has been healed!", () -> {}));
             pressed[KeyEvent.VK_SPACE] = false;
         }
         this.level.update(dt);
@@ -48,4 +48,5 @@ public class PlayState extends State {
     public void render(Graphics2D g2d) {
         this.level.render(g2d);
     }
+
 }

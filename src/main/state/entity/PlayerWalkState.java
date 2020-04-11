@@ -2,6 +2,8 @@ package main.state.entity;
 
 import main.StateStack;
 import main.entity.Entity;
+import main.entity.Player;
+import main.state.game.BattleState;
 import main.state.game.FadeInState;
 import main.state.game.FadeOutState;
 import main.world.Level;
@@ -65,13 +67,14 @@ public class PlayerWalkState extends EntityWalkState {
                             () -> {
                                 StateStack.getInstance().remove();
                                 StateStack.getInstance().append(
+                                        new BattleState((Player) entity)
+                                );
+                                StateStack.getInstance().append(
                                         new FadeOutState(
                                                 new Color(255, 255, 255),
                                                 1,
                                                 () -> {
                                                     StateStack.getInstance().remove();
-                                                    stop("battle-music");
-                                                    play("field-music", true);
                                                 }
                                         )
                                 );
