@@ -33,8 +33,10 @@ public class StateStack extends Stack<State> {
     public void append(State newState){
         if(!isEmpty()) {
             State oldState = peek();
+            oldState.exit();
             game.removeKeyListener(oldState.keyListener);
         }
+        newState.enter();
         push(newState);
         game.addKeyListener(newState.keyListener);
     }
@@ -60,9 +62,11 @@ public class StateStack extends Stack<State> {
         if(!isEmpty()) {
             State oldState = peek();
             game.removeKeyListener(oldState.keyListener);
+            oldState.exit();
             pop();
             if(!isEmpty()) {
                 State newState = peek();
+                newState.enter();
                 game.addKeyListener(newState.keyListener);
             }
         }
@@ -82,7 +86,7 @@ public class StateStack extends Stack<State> {
      * @param g2d
      */
     public void render(Graphics2D g2d){
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         Stack<State> stack = new Stack<State>();
         stack.addAll(stateStack);

@@ -31,16 +31,6 @@ public class FadeInState extends State implements Observer {
     }
 
     @Override
-    public void enter(Map<String, Object> params) {
-
-    }
-
-    @Override
-    public void exit() {
-
-    }
-
-    @Override
     public void update(float dt) {
 
     }
@@ -56,7 +46,6 @@ public class FadeInState extends State implements Observer {
     @Override
     public void doSomething() {
         if(opacity >= 255) {
-            StateStack.getInstance().remove();
             onFadeComplete.execute();
         }
     }

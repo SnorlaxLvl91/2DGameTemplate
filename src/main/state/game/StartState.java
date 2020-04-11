@@ -41,16 +41,6 @@ public class StartState extends State implements Observer {
     }
 
     @Override
-    public void enter(Map<String, Object> params) {
-
-    }
-
-    @Override
-    public void exit() {
-
-    }
-
-    @Override
     public void update(float dt) {
         if(pressed[KeyEvent.VK_ENTER] || pressed[KeyEvent.VK_SPACE]) {
             StateStack.getInstance().append(
@@ -59,6 +49,7 @@ public class StartState extends State implements Observer {
                             1f,
                             () -> {
                                 stop("intro-music");
+                                StateStack.getInstance().remove();
                                 StateStack.getInstance().remove();
                                 StateStack.getInstance().append(new PlayState());
                                 StateStack.getInstance().append(new DialogState(
@@ -72,7 +63,10 @@ public class StartState extends State implements Observer {
                                 StateStack.getInstance().append(new FadeOutState(
                                         new Color(255, 255, 255),
                                         1,
-                                        () -> {}));
+                                        () -> {
+                                            StateStack.getInstance().remove();
+                                        }
+                                        ));
                             }
                             ));
         }

@@ -1,22 +1,18 @@
 package main.state.entity;
 
-import main.State;
-import main.entity.Player;
+import main.entity.Entity;
 
-import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerIdleState extends State {
+import static main.state.game.PlayState.*;
 
-    public Player player;
+public class PlayerIdleState extends EntityState {
 
-    public PlayerIdleState(Player player){
-        this.player = player;
-    }
-
-    @Override
-    public void enter(Map<String, Object> params) {
-
+    public PlayerIdleState(Entity entity) {
+        super(entity);
+        entity.changeAnimation("idle-" + entity.direction);
     }
 
     @Override
@@ -25,12 +21,29 @@ public class PlayerIdleState extends State {
     }
 
     @Override
-    public void update(float dt) {
+    public void processAI(HashMap<String, Object> params, float dt) {
 
     }
 
     @Override
-    public void render(Graphics2D g2d) {
+    public void update(float dt) {
+        if(pressed[KeyEvent.VK_LEFT]) {
+            entity.direction = "left";
+            entity.changeState("walk");
+        }else if(pressed[KeyEvent.VK_RIGHT]) {
+            entity.direction = "right";
+            entity.changeState("walk");
+        }else if(pressed[KeyEvent.VK_UP]) {
+            entity.direction = "up";
+            entity.changeState("walk");
+        }else if(pressed[KeyEvent.VK_DOWN]) {
+            entity.direction = "down";
+            entity.changeState("walk");
+        }
+    }
+
+    @Override
+    public void enter(Map<String, Object> params) {
 
     }
 }

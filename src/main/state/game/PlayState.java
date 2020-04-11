@@ -1,8 +1,11 @@
 package main.state.game;
 
 import main.State;
+import main.StateMachine;
 import main.StateStack;
 import main.controller.StandardController;
+import main.state.entity.PlayerIdleState;
+import main.state.entity.PlayerWalkState;
 import main.world.Level;
 
 import java.awt.*;
@@ -20,16 +23,13 @@ public class PlayState extends State {
         play("field-music", true);
 
         level = new Level();
-    }
 
-    @Override
-    public void enter(Map<String, Object> params) {
+        level.player.stateMachine = new StateMachine(Map.of(
+                "walk", () -> {return new PlayerWalkState(level.player, level);},
+                "idle", () -> {return new PlayerIdleState(level.player);}
+        ));
 
-    }
-
-    @Override
-    public void exit() {
-
+        level.player.stateMachine.change("idle", null);
     }
 
     @Override
@@ -46,8 +46,6 @@ public class PlayState extends State {
 
     @Override
     public void render(Graphics2D g2d) {
-//        g2d.setColor(new Color(188, 0, 188, 255));
-//        g2d.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.level.render(g2d);
     }
 }

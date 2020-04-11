@@ -17,7 +17,7 @@ public class TileMap {
     public void render(Graphics2D g2d) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                tiles[y][x].render(g2d);
+                tiles[x][y].render(g2d);
             }
         }
     }

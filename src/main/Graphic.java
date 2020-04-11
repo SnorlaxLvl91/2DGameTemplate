@@ -34,7 +34,7 @@ public class Graphic {
             /** accessKey, Util.GenerateQuads("res/graphics/name.png", 16, 16) */);
 
     // map containing different types of entity textures
-    public static Map<String, BufferedImage[]> entities = Map.of();
+    public static BufferedImage[] entities = GenerateQuads("res/graphics/entities.png", 16, 16);
 
     public static Map<String, BufferedImage> textures = new HashMap<>();
     static {

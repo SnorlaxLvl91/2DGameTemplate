@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.Map;
 
 import main.entity.*;
+import main.state.entity.EntityState;
 
 /**
  *
@@ -11,7 +12,7 @@ import main.entity.*;
 public class StateMachine {
 
     public Map<String, StateGenerator> states;
-    public State current;
+    public EntityState current;
     public StateGenerator stateGenerator;
 
     public StateMachine(Map<String, StateGenerator> states) {
@@ -24,6 +25,10 @@ public class StateMachine {
         stateGenerator = states.get(stateName);
         this.current = stateGenerator.generate();
         this.current.enter(enterParams);
+    }
+
+    public void processAI(Map<String, Object> params, float dt){
+
     }
 
     public void update(float dt) {

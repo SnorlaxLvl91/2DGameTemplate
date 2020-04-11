@@ -92,16 +92,6 @@ public class DialogState extends State {
     }
 
     @Override
-    public void enter(Map<String, Object> params) {
-
-    }
-
-    @Override
-    public void exit() {
-
-    }
-
-    @Override
     public void update(float dt) {
         if(pressed[KeyEvent.VK_ENTER] || pressed[KeyEvent.VK_SPACE]){
             if(numOfLettersToDraw >= drawableText[0].length() + drawableText[1].length()) {

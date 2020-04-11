@@ -21,11 +21,13 @@ public class SoundPlayer {
      * @param onRepeat
      */
     public static void play(String clipName, boolean onRepeat) {
+        status.put(clipName, statusType.ON_PLAY);
         Thread thread = new Thread(() -> {
             boolean repeat = onRepeat;
             do {
                 try {
                     clips.get(clipName).setMicrosecondPosition(0);
+                    clips.get(clipName).setFramePosition(0);
                     clips.get(clipName).start();
                     while (clips.get(clipName).getFramePosition() < clips.get(clipName).getFrameLength()) {
                         Thread.sleep(33);

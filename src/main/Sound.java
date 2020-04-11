@@ -16,5 +16,6 @@ public class Sound {
         clips.put("intro-music", getClip("res\\sounds\\intro.wav"));
         clips.put("field-music", getClip("res\\sounds\\field_music.wav"));
         clips.put("heal", getClip("res\\sounds\\heal.wav"));
+        clips.put("battle-music", getClip("res\\sounds\\battle_music.wav"));
     }
 }
